@@ -20,3 +20,9 @@ The Game Project is a 2D side-scrolling game where the player controls a charact
 
 - Clone the repository to your local machine.
 - Open the `index.html` file in a web browser.
+
+- ## Credits
+
+- Developed by Roya Nikseresht
+- University: University of London
+- Email: rn211@student.london.ac.uk
