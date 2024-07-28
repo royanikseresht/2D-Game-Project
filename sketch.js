@@ -1,4 +1,15 @@
 /*
+
+- Copy your game project code into this file
+- for the p5.Sound library look here https://p5js.org/reference/#/libraries/p5.sound
+- for finding cool sounds perhaps look here
+https://freesound.org/
+
+
+*/
+
+
+/*
 The Game Project
 */
 
@@ -16,6 +27,16 @@ var isPlummeting;
 var game_score;
 var flagpole;
 var lives = 3;
+
+var jumpSound;
+var loopSound;
+var fallSound;
+var collectableSound;
+var levelCompleteSound;
+var gameOverSound;
+
+
+var cameraPosX = 0;
 
 var trees_x = [-50, 310, 770, 1000, 1230, 1460, 1690, 2000, 2180, 2400];
 
@@ -63,12 +84,37 @@ var collectables = [
   { x_pos: 2300, y_pos: floorPos_y, size: 30, isFound: false }
 ];
 
-var cameraPosX = 0;
+
+function preload()
+{
+    soundFormats('mp3','wav');
+    
+    //load your sounds here
+    jumpSound = loadSound('assets/jump.wav');
+    jumpSound.setVolume(0.1);
+    
+    loopSound = loadSound('assets/Loop sound.wav');
+    loopSound.setVolume(0.15);
+    
+    fallSound = loadSound('assets/fall.wav');
+    fallSound.setVolume(0.1);
+    
+    collectableSound = loadSound('assets/collectable.wav');
+    collectableSound.setVolume(0.4);
+    
+    levelCompleteSound = loadSound('assets/levelComplete.wav');
+    levelCompleteSound.setVolume(0.4);
+    
+    gameOverSound = loadSound('assets/gameOver.wav');
+    gameOverSound.setVolume(0.8);
+}
+
 
 function setup() {
     createCanvas(1024, 576);
     floorPos_y = height * 3 / 4;
     startGame();
+    loopSound.loop();
 }
 
 function startGame(fullRestart = false) {
@@ -262,6 +308,8 @@ function draw() {
         fill(255);
         textSize(32);
         text("Level complete. Press space to continue.", width / 2 - 200, height / 2);
+        loopSound.stop();
+        levelCompleteSound.play();
     }
 }
 
@@ -287,6 +335,7 @@ function keyPressed()
             console.log("jump");
             gameChar_y -= 100; // Adjust the jump height as needed
             isFalling = true;
+            jumpSound.play();
         }
     }
     else if (keyCode === 32)
@@ -295,12 +344,14 @@ function keyPressed()
           // Restart the game if lives are zero
           startGame(true);
           loop(); // Restart the draw loop
+          loopSound.loop();
         }
     }
     
     if (flagpole.isReached && key === ' ') {
         startGame(true); // Pass true to reset lives
         loop(); // Restart the draw loop
+        loopSound.loop();
     }
 }
 
@@ -384,6 +435,7 @@ function checkCollectable(t_collectable){
     if(dist(gameChar_x, gameChar_y, t_collectable.x_pos, floorPos_y) < t_collectable.size) {
         t_collectable.isFound = true;
         game_score += 1;
+        collectableSound.play();
     }
 }
 
@@ -393,25 +445,29 @@ function drawCanyon(t_canyon) {
 }
 
 function checkCanyon(t_canyon){  
-    
-      if (
+    if (
         gameChar_x > t_canyon.x_pos &&
         gameChar_x < t_canyon.x_pos + t_canyon.width &&
         gameChar_y >= floorPos_y &&
         gameChar_y < floorPos_y + t_canyon.depth
-      ) {
+    ) {
         // Character is inside the canyon
         isPlummeting = true;
         gameChar_x = constrain(gameChar_x, t_canyon.x_pos, t_canyon.x_pos + t_canyon.width);
         gameChar_y = constrain(gameChar_y, floorPos_y, floorPos_y + t_canyon.depth);
-      } else {
+        
+        // Play fall sound only once when entering the canyon
+        if (!fallSound.isPlaying()) {
+            fallSound.play();
+        }
+    } else {
         isPlummeting = false;
-      }
+    }
 
-      if (isPlummeting) {
+    if (isPlummeting) {
         gameChar_y = min(gameChar_y + 10, floorPos_y + t_canyon.depth);
         gameChar_x = constrain(gameChar_x, t_canyon.x_pos, t_canyon.x_pos + t_canyon.width);
-      }
+    }
 }
 
 function renderFlagpole() {
@@ -434,8 +490,6 @@ function renderFlagpole() {
     }
 }
 
-
-
 function checkFlagpole() {
     gameChar_world_x = gameChar_x - scrollPos;
     var d = abs(gameChar_world_x - flagpole.x_pos);
@@ -455,6 +509,8 @@ function checkPlayerDie() {
       fill(255);
       textSize(32);
       text("Game over. Press space to continue.", width / 2 - 200, height / 2);
+      loopSound.stop();
+      gameOverSound.play();
       noLoop(); // Stop the draw loop
     }
   }
