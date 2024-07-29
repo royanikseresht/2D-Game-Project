@@ -22,6 +22,7 @@ Embark on an exciting journey through a vibrant world filled with challenges and
 1. Clone the repository to your local machine.
 2. Open the `index.html` file in your web browser.
 
+# Credits
 **Developed by:** Roya Nikseresht
 
 **University:** University of London
