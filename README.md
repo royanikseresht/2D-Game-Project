@@ -1,4 +1,4 @@
-##The Game Project: A Side-scrolling Platformer Adventure
+#The Game Project: A Side-scrolling Platformer Adventure
 
 Embark on an exciting journey through a vibrant world filled with challenges and rewards in this side-scrolling platformer. Navigate treacherous terrains, outsmart cunning enemies, and collect valuable treasures as you strive to reach the triumphant flagpole.
 
