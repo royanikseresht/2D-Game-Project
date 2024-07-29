@@ -1,13 +1,4 @@
 /*
-
-- for the p5.Sound library look here https://p5js.org/reference/#/libraries/p5.sound
-- for finding cool sounds perhaps look here
-https://freesound.org/
-
-*/
-
-
-/*
 The Game Project
 */
 
@@ -33,10 +24,11 @@ var collectableSound;
 var levelCompleteSound;
 var gameOverSound;
 
-
 var cameraPosX = 0;
 
-var trees_x = [-50, 310, 770, 1000, 1230, 1460, 1690, 2000, 2180, 2400];
+var enemies;
+
+var trees_x = [-50, 310, 770, 1000, 1230, 1460, 1690, 2000, 2180, 2400, 2750];
 
 var clouds = [
   { x_pos: -40, y_pos: 80},
@@ -53,7 +45,8 @@ var clouds = [
   { x_pos: 1800, y_pos: 90},
   { x_pos: 2000, y_pos: 80},
   { x_pos: 2200, y_pos: 80},
-  { x_pos: 2400, y_pos: 90}
+  { x_pos: 2400, y_pos: 90},
+  { x_pos: 2700, y_pos: 80}
 ];
 
 var mountains = [
@@ -65,7 +58,8 @@ var mountains = [
   { x_pos: 1050, y_pos: floorPos_y - 150, width: 120, height: 150 },
   { x_pos: 1800, y_pos: floorPos_y - 150, width: 160, height: 230 },
   { x_pos: 1700, y_pos: floorPos_y - 150, width: 150, height: 250 },
-  { x_pos: 2200, y_pos: floorPos_y - 150, width: 150, height: 200 }
+  { x_pos: 2200, y_pos: floorPos_y - 150, width: 150, height: 200 },
+  { x_pos: 2750, y_pos: floorPos_y - 150, width: 150, height: 200 }
 ];
 
 var canyons = [
@@ -132,6 +126,13 @@ function startGame(fullRestart = false) {
     if (fullRestart) {
         lives = 3;
     }
+
+    enemies = [];
+    enemies.push(new Enemy(20, floorPos_y - 10, 100));
+    enemies.push(new Enemy(300, floorPos_y - 10, 100));
+    enemies.push(new Enemy(1000, floorPos_y - 10, 100)); 
+    enemies.push(new Enemy(1700, floorPos_y - 10, 100));
+    enemies.push(new Enemy(2800, floorPos_y - 10, 100));
 }
 
 
@@ -149,9 +150,9 @@ function draw() {
   fill(0,128,0);
   rect(-1000, floorPos_y, 5000, height - floorPos_y);
 
+  drawMountains();
   drawTrees();
   drawClouds();
-  drawMountains();
 
   // Draw the canyons
   for (var i = 0; i < canyons.length; i++) {
@@ -169,93 +170,128 @@ function draw() {
     
   renderFlagpole();    
     
+   for (var i = 0; i < enemies.length; i++) {
+       
+       enemies[i].draw();
+       
+       if(isContact = enemies[i].checkContact(gameChar_world_x, gameChar_y)){
+           lives--;
+           if (lives > 0) {
+               startGame();
+            }
+           else {
+               fill(255);
+               textSize(32);
+               textAlign(CENTER, CENTER);
+               text("Game Over. Press space to continue.", width / 2 + cameraPosX, height / 2);
+               loopSound.stop();
+               gameOverSound.play();
+               noLoop(); // Stop the draw loop
+            }
+        }
+    }
+
     // Draw the game character
     if(isLeft && isFalling)
     {
         // Jumping left
         fill(210, 180, 140);
-        ellipse(gameChar_x - 14, gameChar_y - 65, 20, 20);
-        fill(0, 0, 255);
-        ellipse(gameChar_x - 14, gameChar_y - 40, 20, 30);
-        ellipse(gameChar_x - 17, gameChar_y - 65, 3, 3);
-        ellipse(gameChar_x - 11, gameChar_y - 65, 3, 3);
+        ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-55, 25,10);
+        fill(200, 30, 100);
+        triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
+        fill(0);
+        ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
+        ellipse(gameChar_x + 3, gameChar_y - 45, 3, 3);
         fill(210, 180, 140);
-        ellipse(gameChar_x - 14, gameChar_y - 45, 8, 8);
-        ellipse(gameChar_x - 4, gameChar_y - 45, 8, 8);
-        ellipse(gameChar_x - 14, gameChar_y - 25, 15, 8);
-        ellipse(gameChar_x - 9, gameChar_y - 25, 8, 15);
+        ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     
     else if(isRight && isFalling)
     {
         // Jumping right
         fill(210, 180, 140);
-        ellipse(gameChar_x + 15, gameChar_y - 65, 20, 20);
-        fill(0, 0, 255);
-        ellipse(gameChar_x + 15, gameChar_y - 40, 20, 30);
-        ellipse(gameChar_x + 7, gameChar_y - 65, 3, 3);
-        ellipse(gameChar_x + 18, gameChar_y - 65, 3, 3);
+        ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-55, 25,10);
+        fill(200, 30, 100);
+        triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
+        fill(0);
+        ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
+        ellipse(gameChar_x + 3, gameChar_y - 45, 3, 3);
         fill(210, 180, 140);
-        ellipse(gameChar_x, gameChar_y - 45, 8, 8);
-        ellipse(gameChar_x + 15, gameChar_y - 45, 8, 8);
-        ellipse(gameChar_x + 5, gameChar_y - 25, 8, 15);
-        ellipse(gameChar_x + 15, gameChar_y - 25, 15, 8);
+        ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     else if(isLeft)
     {
         // Walking left
         fill(210, 180, 140);
-        ellipse(gameChar_x - 14, gameChar_y - 45, 20, 20);
-        fill(0, 0, 255);
-        ellipse(gameChar_x - 14, gameChar_y - 20, 20, 30);
+        ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-55, 25,10);
+        fill(200, 30, 100);
+        triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
-        ellipse(gameChar_x - 17, gameChar_y - 45, 3, 3);
-        ellipse(gameChar_x - 11, gameChar_y - 45, 3, 3);
+        ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
+        ellipse(gameChar_x + 3, gameChar_y - 45, 3, 3);
         fill(210, 180, 140);
-        ellipse(gameChar_x - 14, gameChar_y - 25, 8, 8);
-        ellipse(gameChar_x - 4, gameChar_y - 25, 8, 8);
-        ellipse(gameChar_x - 14, gameChar_y - 5, 8, 15);
-        ellipse(gameChar_x - 9, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     else if(isRight)
     {
         // Walking right
         fill(210, 180, 140);
-        ellipse(gameChar_x + 15, gameChar_y - 45, 20, 20);
-        fill(0, 0, 255);
-        ellipse(gameChar_x + 15, gameChar_y - 20, 20, 30);
+        ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-55, 25,10);
+        fill(200, 30, 100);
+        triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
-        ellipse(gameChar_x + 7, gameChar_y - 45, 3, 3);
-        ellipse(gameChar_x + 18, gameChar_y - 45, 3, 3);
+        ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
+        ellipse(gameChar_x + 3, gameChar_y - 45, 3, 3);
         fill(210, 180, 140);
-        ellipse(gameChar_x, gameChar_y - 25, 8, 8);
-        ellipse(gameChar_x + 15, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
         ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
-        ellipse(gameChar_x + 15, gameChar_y - 5, 8, 15);
     }
     else if(isFalling || isPlummeting)
     {
         // Jumping forward
         fill(210, 180, 140);
-        ellipse(gameChar_x, gameChar_y - 65, 20, 20);
-        fill(0, 0, 255);
-        ellipse(gameChar_x, gameChar_y - 40, 20, 30);
+        ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-55, 25,10);
+        fill(200, 30, 100);
+        triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
-        ellipse(gameChar_x - 3, gameChar_y - 65, 3, 3);
-        ellipse(gameChar_x + 3, gameChar_y - 65, 3, 3);
+        ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
+        ellipse(gameChar_x + 3, gameChar_y - 45, 3, 3);
         fill(210, 180, 140);
-        ellipse(gameChar_x - 10, gameChar_y - 45, 8, 8);
-        ellipse(gameChar_x + 10, gameChar_y - 45, 8, 8);
-        ellipse(gameChar_x - 8, gameChar_y - 25, 15, 8);
-        ellipse(gameChar_x + 8, gameChar_y - 25, 15, 8);
+        ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     else
     {
         // Standing
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
-        fill(0, 0, 255);
-        ellipse(gameChar_x, gameChar_y - 20, 20, 30);
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-55, 25,10);
+        fill(200, 30, 100);
+        triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
         ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
         ellipse(gameChar_x + 3, gameChar_y - 45, 3, 3);
@@ -272,7 +308,7 @@ function draw() {
     fill(255);
     noStroke();
     textSize(18);
-    text("Score: " + game_score, 30, 30);
+    text("Score: " + game_score, 45, 30);
     
     // Display lives
     for (var i = 0; i < lives; i++) {
@@ -305,10 +341,11 @@ function draw() {
     if (flagpole.isReached){
         fill(255);
         textSize(32);
-        text("Level complete. Press space to continue.", width / 2 - 200, height / 2);
+        text("Level Complete. Press space to continue.", width / 2 - 200, height / 2);
         loopSound.stop();
         levelCompleteSound.play();
     }
+    
 }
 
 function keyPressed()
@@ -399,6 +436,16 @@ function drawClouds(){
 function drawMountains(){
     for (var i = 0; i < mountains.length; i++) {
     noStroke();
+    fill(130, 130, 130);
+    triangle(
+      mountains[i].x_pos+50,
+      floorPos_y,
+      mountains[i].x_pos + mountains[i].width+50,
+      floorPos_y,
+      mountains[i].x_pos + mountains[i].width / 2 + 50,
+      floorPos_y - mountains[i].height
+    );
+        
     fill(100, 100, 100);
     triangle(
       mountains[i].x_pos,
@@ -506,10 +553,56 @@ function checkPlayerDie() {
       // Game over logic here
       fill(255);
       textSize(32);
-      text("Game over. Press space to continue.", width / 2 - 200, height / 2);
+      text("Game Over. Press space to continue.", width / 2 - 200 , height / 2);
       loopSound.stop();
       gameOverSound.play();
       noLoop(); // Stop the draw loop
     }
   }
+}
+
+function Enemy(x, y, range){
+    this.x = x;
+    this.y = y;
+    this.range = range;
+    
+    this.currentX = x;
+    this.inc = 1;
+    
+    this.update = function(){
+        this.currentX += this.inc;
+        
+        if(this.currentX >= this.x + this.range){
+            this.inc = -1;
+        }
+        else if(this.currentX < this.x){
+            this.inc = 1;
+        }
+    }
+    
+    this.draw = function(){
+        this.update();
+        
+        fill(210, 180, 140);
+        ellipse(this.currentX, this.y - 45, 20, 20);
+        fill(255, 0, 0);
+        ellipse(this.currentX, this.y - 20, 20, 30);
+        fill(0);
+        ellipse(this.currentX - 3, this.y - 45, 3, 3);
+        ellipse(this.currentX + 3, this.y - 45, 3, 3);
+        fill(210, 180, 140);
+        ellipse(this.currentX - 10, this.y - 25, 8, 8);
+        ellipse(this.currentX + 10, this.y - 25, 8, 8);
+        ellipse(this.currentX - 5, this.y - 5, 8, 15);
+        ellipse(this.currentX + 5, this.y - 5, 8, 15);
+    }
+    
+    this.checkContact = function(gc_x, gc_y){
+        var d = dist(gc_x, gc_y, this.currentX, this.y);
+        
+        if(d < 20){
+            return true;
+        }
+        return false;
+    }
 }
