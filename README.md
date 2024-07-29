@@ -1,6 +1,6 @@
 # The Game Project
 
-The Game Project is a 2D side-scrolling game where the player controls a character and navigates through a landscape filled with obstacles, collectables, and a flagpole to reach the end of the level.
+This code creates a side-scrolling platformer game with a character that can move left/right, jump, collect items, avoid enemies, and reach a goal (flagpole). The game keeps track of the score, lives, and provides sound effects
 
 ## How to Play
 
