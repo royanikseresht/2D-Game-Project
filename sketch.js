@@ -137,7 +137,7 @@ function startGame(fullRestart = false) {
 
 
 function draw() {
-  background(135, 206, 235); // fill the sky blue
+  background(200, 220, 255); //sky color
     
   cameraPosX = gameChar_x - width / 2;
 
@@ -147,7 +147,7 @@ function draw() {
     
   // Draw the ground
   noStroke();
-  fill(0,128,0);
+  fill(230, 120, 180);
   rect(-1000, floorPos_y, 5000, height - floorPos_y);
 
   drawMountains();
@@ -195,11 +195,12 @@ function draw() {
     if(isLeft && isFalling)
     {
         // Jumping left
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
-        fill(255, 230, 180);
-        ellipse(gameChar_x, gameChar_y-55, 25,10);
-        fill(200, 30, 100);
+        let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
+        fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
         ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
@@ -214,11 +215,12 @@ function draw() {
     else if(isRight && isFalling)
     {
         // Jumping right
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
-        fill(255, 230, 180);
-        ellipse(gameChar_x, gameChar_y-55, 25,10);
-        fill(200, 30, 100);
+        let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
+        fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
         ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
@@ -232,11 +234,12 @@ function draw() {
     else if(isLeft)
     {
         // Walking left
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
-        fill(255, 230, 180);
-        ellipse(gameChar_x, gameChar_y-55, 25,10);
-        fill(200, 30, 100);
+        let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
+        fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
         ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
@@ -250,11 +253,12 @@ function draw() {
     else if(isRight)
     {
         // Walking right
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
-        fill(255, 230, 180);
-        ellipse(gameChar_x, gameChar_y-55, 25,10);
-        fill(200, 30, 100);
+        let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
+        fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
         ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
@@ -268,11 +272,12 @@ function draw() {
     else if(isFalling || isPlummeting)
     {
         // Jumping forward
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
-        fill(255, 230, 180);
-        ellipse(gameChar_x, gameChar_y-55, 25,10);
-        fill(200, 30, 100);
+        let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
+        fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
         ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
@@ -286,11 +291,12 @@ function draw() {
     else
     {
         // Standing
+        fill(255, 230, 180);
+        ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
-        fill(255, 230, 180);
-        ellipse(gameChar_x, gameChar_y-55, 25,10);
-        fill(200, 30, 100);
+        let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
+        fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
         fill(0);
         ellipse(gameChar_x - 3, gameChar_y - 45, 3, 3);
@@ -342,6 +348,7 @@ function draw() {
         fill(255);
         textSize(32);
         text("Level Complete. Press space to continue.", width / 2 - 200, height / 2);
+        text("Designed by ROYA :)", width / 2 - 200, height / 2 + 200);
         loopSound.stop();
         levelCompleteSound.play();
     }
@@ -407,26 +414,27 @@ function keyReleased()
     }
 }
 
-function drawTrees(){
-    for (var i = 0; i < trees_x.length; i++) {
-    fill(90, 60, 30);
-    rect(trees_x[i] - 10, floorPos_y - 100, 20, 100);
-    fill(25, 100, 25);
-    triangle(trees_x[i]-75, floorPos_y - 150,
-             trees_x[i], floorPos_y-300,
-             trees_x[i]+75, floorPos_y-150
-            );
-    triangle(trees_x[i]-100, floorPos_y-75,
-             trees_x[i], floorPos_y-225,
-             trees_x[i]+100, floorPos_y-75
-            );
+function drawTrees() {
+  for (var i = 0; i < trees_x.length; i++) {
+    // Randomize lollipop colors
+    let candyColor = color(random(220, 255), random(100, 150), random(150, 200));
+    let stickColor = color(random(50, 100), random(30, 60), random(20, 40));
+
+    // Lollipop stick
+    fill(stickColor);
+    rect(trees_x[i] - 5, floorPos_y - 100, 10, 100);
+
+    // Lollipop candy
+    fill(candyColor);
+    ellipse(trees_x[i], floorPos_y - 150, 100, 100);
   }
 }
 
 function drawClouds(){
     for (var i = 0; i < clouds.length; i++) {
     noStroke();
-    fill(255);
+    let cloudColor = color(random(200, 230), random(150, 180), random(200, 255));
+    fill(cloudColor);
     ellipse(clouds[i].x_pos, clouds[i].y_pos, 65, 65);
     ellipse(clouds[i].x_pos - 30, clouds[i].y_pos, 45, 45);
     ellipse(clouds[i].x_pos + 30, clouds[i].y_pos, 35, 35);
@@ -436,7 +444,7 @@ function drawClouds(){
 function drawMountains(){
     for (var i = 0; i < mountains.length; i++) {
     noStroke();
-    fill(130, 130, 130);
+    fill(220, 230, 255);
     triangle(
       mountains[i].x_pos+50,
       floorPos_y,
@@ -446,7 +454,7 @@ function drawMountains(){
       floorPos_y - mountains[i].height
     );
         
-    fill(100, 100, 100);
+    fill(150, 180, 250);
     triangle(
       mountains[i].x_pos,
       floorPos_y,
@@ -485,7 +493,8 @@ function checkCollectable(t_collectable){
 }
 
 function drawCanyon(t_canyon) {
-  fill(101, 67, 33);
+  let canyonColor = color(random(150, 200), random(100, 150), random(180, 255));
+  fill(canyonColor);
   rect(t_canyon.x_pos, floorPos_y, t_canyon.width, t_canyon.depth);
 }
 
@@ -583,6 +592,8 @@ function Enemy(x, y, range){
     this.draw = function(){
         this.update();
         
+        fill(0, 0, 0);
+        ellipse(this.currentX, this.y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(this.currentX, this.y - 45, 20, 20);
         fill(255, 0, 0);
