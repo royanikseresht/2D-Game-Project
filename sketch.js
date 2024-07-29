@@ -199,6 +199,8 @@ function draw() {
         ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
         let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
         fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
@@ -208,8 +210,6 @@ function draw() {
         fill(210, 180, 140);
         ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
         ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
-        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
-        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     
     else if(isRight && isFalling)
@@ -219,6 +219,8 @@ function draw() {
         ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
         let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
         fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
@@ -228,8 +230,6 @@ function draw() {
         fill(210, 180, 140);
         ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
         ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
-        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
-        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     else if(isLeft)
     {
@@ -238,6 +238,8 @@ function draw() {
         ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
         let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
         fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
@@ -247,8 +249,6 @@ function draw() {
         fill(210, 180, 140);
         ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
         ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
-        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
-        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     else if(isRight)
     {
@@ -257,6 +257,8 @@ function draw() {
         ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
         let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
         fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
@@ -266,8 +268,6 @@ function draw() {
         fill(210, 180, 140);
         ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
         ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
-        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
-        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     else if(isFalling || isPlummeting)
     {
@@ -276,6 +276,8 @@ function draw() {
         ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
         let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
         fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
@@ -285,8 +287,6 @@ function draw() {
         fill(210, 180, 140);
         ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
         ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
-        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
-        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     else
     {
@@ -295,6 +295,8 @@ function draw() {
         ellipse(gameChar_x, gameChar_y-40, 25, 45);
         fill(210, 180, 140);
         ellipse(gameChar_x, gameChar_y - 45, 20, 20);
+        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
+        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
         let dressColor = color(random(150, 255), random(0, 100), random(50, 150));
         fill(dressColor);
         triangle(gameChar_x - 15, gameChar_y - 10, gameChar_x + 15, gameChar_y - 10, gameChar_x, gameChar_y - 35);
@@ -304,8 +306,6 @@ function draw() {
         fill(210, 180, 140);
         ellipse(gameChar_x - 10, gameChar_y - 25, 8, 8);
         ellipse(gameChar_x + 10, gameChar_y - 25, 8, 8);
-        ellipse(gameChar_x - 5, gameChar_y - 5, 8, 15);
-        ellipse(gameChar_x + 5, gameChar_y - 5, 8, 15);
     }
     
     pop();
